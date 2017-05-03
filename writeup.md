@@ -120,7 +120,7 @@ The proceeding images used the previous polyline to establish a window of points
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
-I did this in "./project.ipynb" lines 130 to 141. I used the methods described in the lesson. This involved getting the polynomial coefficients, y value furthest from the vehicle and the radius of curvature equation. The values seemed to be sensible. They hovered around the 500 m range during the curves in the highway, but during straight aways, it expanded out to 1000 - 4000 m. These values are within the ranges given by the lesson. The centering of the vehicle calculation is located in "./project.ipynb" lines 144 to 149. I simply took the bottom y value of the image (closest to the car) and calculated the midpoint between the two polylines of left and right lane. Then I just took the difference between the midpoint calculated and the midpoint of the actual image. The values seemed to be fairly reasonable as well (within the 1.5 to 0.1 range).
+I did this in "./project.ipynb" lines 130 to 141. I used the methods described in the lesson. This involved getting the polynomial coefficients, y value furthest from the vehicle and the radius of curvature equation. The values seemed to be sensible. They hovered around the 500 m range during the curves in the highway, but during straight aways, it expanded out to 1000 - 4000 m. These values are within the ranges given by the lesson. The centering of the vehicle calculation is located in "./project.ipynb" lines 144 to 149. I simply took the bottom y value of the image (closest to the car) and calculated the midpoint between the two polylines of left and right lane. Then I just took the difference between the midpoint calculated and the midpoint of the actual image. The values seemed to be fairly reasonable as well (within the 0.5 to 0.1 range).
 
  ![alt text][image8]
 
@@ -136,7 +136,7 @@ To warp the prespetive back to the road in the camera image, I just used the inv
 
 #### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
 
-Here's a [link to my video result](https://www.youtube.com/watch?v=l63cdaAtps8)
+Here's a [link to my video result](https://www.youtube.com/watch?v=bZu0sPdyr_0)
 
 ---
 

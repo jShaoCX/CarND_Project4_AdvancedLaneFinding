@@ -65,7 +65,7 @@ def fit_polyline_to_lane(orig_img, warped_pipeline, left_line_list, right_line_l
         nonzerox = np.array(nonzero[1])
         margin = 100
         minpix = 50
-        midpoint = np.int(warped_pipeline.shape[0] / 2)
+        midpoint = np.int(warped_pipeline.shape[1] / 2)
 
 
         left_line_list_fit =  np.mean([lline.current_fit for lline in left_line_list],axis=0)
@@ -142,12 +142,12 @@ def fit_polyline_to_lane(orig_img, warped_pipeline, left_line_list, right_line_l
         right_line.radius_of_curvature = right_curve_rad
         # Now our radius of curvature is in meters
 
-        y_bot = 720
+        y_bot = 665 * ym_per_pix
         left_front_car = left_fit_cr[0] * y_bot ** 2 + left_fit_cr[1] * y_bot + left_fit_cr[2]
         right_front_car = right_fit_cr[0] * y_bot ** 2 + right_fit_cr[1] * y_bot + right_fit_cr[2]
         mid_front_car_x = np.absolute((left_front_car + right_front_car) / 2)
-        off_center = np.absolute(mid_front_car_x - np.absolute(midpoint))
-        vehicle_offset = off_center * xm_per_pix
+        off_center = np.absolute(mid_front_car_x - np.absolute(midpoint) * xm_per_pix)
+        vehicle_offset = off_center
 
 
         '''
@@ -199,7 +199,7 @@ def fit_polyline_to_lane(orig_img, warped_pipeline, left_line_list, right_line_l
 
     # Assuming you have created a warped binary image called "binary_warped"
     # Take a histogram of the bottom half of the image
-    histogram = np.sum(warped_pipeline[warped_pipeline.shape[0]*3/4:,:], axis=0)
+    histogram = np.sum(warped_pipeline[int(warped_pipeline.shape[0]*3/4):,:], axis=0)
     # Create an output image to draw on and  visualize the result
     out_img = np.dstack((warped_pipeline, warped_pipeline, warped_pipeline))*255
     # Find the peak of the left and right halves of the histogram
@@ -302,12 +302,12 @@ def fit_polyline_to_lane(orig_img, warped_pipeline, left_line_list, right_line_l
     right_line.radius_of_curvature = right_curve_rad
     # Now our radius of curvature is in meters
 
-    y_bot = 720
+    y_bot = 665 * ym_per_pix
     left_front_car = left_fit_cr[0] * y_bot ** 2 + left_fit_cr[1] * y_bot + left_fit_cr[2]
     right_front_car = right_fit_cr[0] * y_bot ** 2 + right_fit_cr[1] * y_bot + right_fit_cr[2]
     mid_front_car_x = np.absolute((left_front_car + right_front_car) / 2)
-    off_center = np.absolute(mid_front_car_x - np.absolute(midpoint))
-    vehicle_offset = off_center * xm_per_pix
+    off_center = np.absolute(mid_front_car_x - np.absolute(midpoint) * xm_per_pix)
+    vehicle_offset = off_center
 
     '''
     window_img = np.zeros_like(out_img)
@@ -400,3 +400,4 @@ adv_output = 'adv_lane_line.mp4'
 clip1 = VideoFileClip("project_video.mp4")
 white_clip = clip1.fl_image(process_image) #NOTE: this function expects color images!!
 white_clip.write_videofile(adv_output, audio=False)
+
